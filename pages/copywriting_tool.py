@@ -6,7 +6,13 @@ AI文案生成器 Pro - 商业化级AI文案创作平台
 import streamlit as st
 import json
 import re
+import sys
+import os
 from openai import OpenAI
+
+# 添加父目录到路径以导入 db_utils
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import db_utils
 
 # ==================== 页面配置 ====================
 st.set_page_config(
@@ -239,6 +245,15 @@ model_name = st.secrets.get("model_name", "deepseek-chat")
 
 # ==================== 主界面 ====================
 
+# 返回按钮
+nav_col1, nav_col2, _ = st.columns([1, 1, 4])
+with nav_col1:
+    if st.button("← 返回首页", key="back_home"):
+        st.switch_page("app.py")
+with nav_col2:
+    if st.button("📋 历史记录", key="view_history"):
+        st.switch_page("pages/history.py")
+
 # 头部
 st.markdown("""
 <div class="main-header">
@@ -248,11 +263,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 统计卡片
+stats = db_utils.get_stats()
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown('<div class="stat-card"><div class="number">6</div><div class="label">文案类型</div></div>', unsafe_allow_html=True)
 with col2:
-    st.markdown('<div class="stat-card"><div class="number"></div><div class="label">生成次数</div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="stat-card"><div class="number">{stats["copywriting"]}</div><div class="label">已生成</div></div>', unsafe_allow_html=True)
 with col3:
     st.markdown('<div class="stat-card"><div class="number">3s</div><div class="label">平均生成</div></div>', unsafe_allow_html=True)
 with col4:
@@ -304,6 +320,17 @@ if st.button("✨ 一键生成文案", type="primary", use_container_width=True)
                 )
                 result = response.choices[0].message.content
 
+                # 保存到数据库
+                try:
+                    db_utils.save_record(
+                        tool_type="copywriting",
+                        title=f"{selected_type} - {inputs[0][:30]}",
+                        content=result,
+                        extra_data={"copy_type": selected_type, "inputs": [x.strip() for x in inputs]}
+                    )
+                except Exception:
+                    pass  # 数据库保存失败不影响主流程
+
                 # 展示结果
                 st.markdown('<div class="result-box">', unsafe_allow_html=True)
                 st.markdown(f"### {cfg['icon']} 生成结果")
@@ -336,6 +363,6 @@ if st.button("✨ 一键生成文案", type="primary", use_container_width=True)
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align:center;color:#bbb;font-size:0.75rem;padding:1rem 0;">
-CopyAI Pro v2.0 | Powered by AI | Built with Streamlit
+CopyAI Pro v3.0 | Powered by AI | Built with Streamlit
 </div>
 """, unsafe_allow_html=True)
