@@ -206,6 +206,24 @@ st.markdown("""
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     .stDeployButton { visibility: hidden; }
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 768px) {
+        .block-container { padding: 1rem 0.8rem !important; }
+        .hero-section { padding: 2.5rem 0 1.5rem; }
+        .hero-section h1 { font-size: 2.4rem !important; }
+        .hero-section .tagline { font-size: 1rem; }
+        .hero-section .sub-tagline { font-size: 0.8rem; }
+        .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+        .stats-bar { gap: 1rem; flex-wrap: wrap; padding: 1rem 0; }
+        .stat-item .num { font-size: 1.5rem; }
+        .stat-item .label { font-size: 0.7rem; }
+        .tools-container { gap: 1rem; padding: 0.5rem; }
+        .tool-card { width: 100% !important; min-height: auto; padding: 1.5rem 1rem; }
+        .tool-card h3 { font-size: 1.2rem; }
+        .features-section { gap: 1rem; padding: 2rem 1rem 1rem; }
+        .feat-card { width: 140px; }
+    }
 </style>
 """, unsafe_allow_html=True)
 

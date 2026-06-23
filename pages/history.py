@@ -101,6 +101,16 @@ st.markdown("""
         border: 1px solid #e8e8ef !important;
         border-radius: 10px !important;
     }
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 768px) {
+        .block-container { padding: 1rem 0.8rem !important; }
+        .main-header h1 { font-size: 2rem !important; }
+        .main-header .subtitle { font-size: 0.8rem; letter-spacing: 1px; }
+        .stat-card .number { font-size: 1.4rem; }
+        .stat-card .label { font-size: 0.65rem; }
+        .stat-card { padding: 0.6rem; }
+    }
 </style>
 """, unsafe_allow_html=True)
 

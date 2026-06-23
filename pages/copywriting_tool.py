@@ -105,6 +105,21 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stDeployButton {visibility: hidden;}
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 768px) {
+        .block-container { padding: 1rem 0.8rem !important; }
+        .main-header h1 { font-size: 2rem !important; }
+        .main-header .subtitle { font-size: 0.8rem; letter-spacing: 1px; }
+        .stat-card .number { font-size: 1.4rem; }
+        .stat-card .label { font-size: 0.65rem; }
+        .stat-card { padding: 0.6rem; }
+        .stButton > button[kind="primary"] {
+            font-size: 0.95rem !important;
+            padding: 0.6rem 1rem !important;
+        }
+        .result-box { padding: 1rem; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
