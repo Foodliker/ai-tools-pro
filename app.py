@@ -119,11 +119,15 @@ st.markdown("""
         border-radius: 20px;
         padding: 2.5rem 2rem;
         width: 340px;
+        min-height: 340px;
         text-align: center;
         box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .tool-card::before {
         content: '';
